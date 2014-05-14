@@ -32,11 +32,10 @@ public class TipoDao {
 		
 		SQLiteDatabase db = dbHandler.getReadableDatabase();
 		
+		// SELECT * FROM tipo ORDER BY nome;
 		Cursor cursor = db.query("tipo", null, null, null, null, null, "nome");
 		while (cursor.moveToNext()) {
-			Tipo tipo = new Tipo();
-			tipo.id = cursor.getLong(cursor.getColumnIndex("_id"));
-			tipo.nome = cursor.getString(cursor.getColumnIndex("nome"));
+			Tipo tipo = fromCursor(cursor);
 			
 			result.add(tipo);
 		}
@@ -47,8 +46,28 @@ public class TipoDao {
 
 	// Vamos fazer na próxima aula.
 	public Tipo queryById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Tipo result = null;
+		
+		SQLiteDatabase db = dbHandler.getReadableDatabase();
+		
+		String[] selectionArgs = {String.valueOf(id)};
+		
+		// SELECT * FROM tipo WHERE id=id;
+		Cursor c = db.query("tipo", null, "id=?", selectionArgs, null, null, null);
+		if (c.moveToFirst()) {
+			result = fromCursor(c);
+		}
+		c.close();
+		
+		return result;
+		
+	}
+	
+	private Tipo fromCursor(Cursor cursor) {
+		Tipo tipo = new Tipo();
+		tipo.id = cursor.getLong(cursor.getColumnIndex("_id"));
+		tipo.nome = cursor.getString(cursor.getColumnIndex("nome"));
+		return tipo;
 	}
 
 }

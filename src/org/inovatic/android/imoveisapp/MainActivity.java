@@ -1,16 +1,28 @@
 package org.inovatic.android.imoveisapp;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
-
+	
+	// github.com/carlosgracite/imoveis-app
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, ImovelFormActivity.class);
+				startActivity(i);
+			}
+		});
 	}
 
 	@Override
