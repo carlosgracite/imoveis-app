@@ -8,12 +8,11 @@ import org.inovatic.android.imoveisapp.model.Tipo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class ImovelFormActivity extends ActionBarActivity {
+public class ImovelFormActivity extends Activity {
 	
 	private EditText nomeEditText;
 	private EditText descricaoEditText;
