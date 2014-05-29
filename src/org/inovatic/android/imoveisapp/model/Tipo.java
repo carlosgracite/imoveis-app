@@ -5,4 +5,8 @@ public class Tipo {
 	public long id;
 	public String nome;
 
+	@Override
+	public String toString() {
+		return nome;
+	}
 }

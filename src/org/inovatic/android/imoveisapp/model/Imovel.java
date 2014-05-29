@@ -7,5 +7,10 @@ public class Imovel {
 	public String descricao;
 	public int preco;
 	public Tipo tipo;
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
 
 }
