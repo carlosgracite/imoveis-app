@@ -37,6 +37,9 @@ public class ImovelFormActivity extends ActionBarActivity
 		View saveButton = findViewById(R.id.button1);
 		saveButton.setOnClickListener(this);
 		
+		View cancelButton = findViewById(R.id.button2);
+		cancelButton.setOnClickListener(this);
+		
 		populateSpinner();
 	}
 
@@ -69,7 +72,9 @@ public class ImovelFormActivity extends ActionBarActivity
 		case R.id.button1:
 			save();
 			break;
-
+		case R.id.button2:
+			finish();
+			break;
 		default:
 			break;
 		}
