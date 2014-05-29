@@ -17,6 +17,8 @@ import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity {
 	
+	public static final int REQUEST_CREATE_IMOVEL = 1;
+	
 	private ListView listView;
 	
 	@Override
@@ -30,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this, ImovelFormActivity.class);
-				startActivity(i);
+				startActivityForResult(i, REQUEST_CREATE_IMOVEL);
 			}
 		});
 		
@@ -48,6 +50,15 @@ public class MainActivity extends ActionBarActivity {
 		List<Imovel> result = imovelDao.queryAll();
 		dbHandler.close();
 		return result;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CREATE_IMOVEL) {
+			if (resultCode == RESULT_OK) {
+				populateList();
+			}
+		}
 	}
 
 	@Override

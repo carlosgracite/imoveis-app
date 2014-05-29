@@ -91,6 +91,7 @@ public class ImovelFormActivity extends ActionBarActivity
 		if (id > 0) {
 			Toast.makeText(this, "O imóvel foi inserido com sucesso.", 
 					Toast.LENGTH_SHORT).show();
+			setResult(RESULT_OK);
 			finish();
 		} else {
 			Toast.makeText(this, "Erro ao inserir imóvel.", 
