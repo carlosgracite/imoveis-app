@@ -53,7 +53,7 @@ public class TipoDao {
 		String[] selectionArgs = {String.valueOf(id)};
 		
 		// SELECT * FROM tipo WHERE id=id;
-		Cursor c = db.query("tipo", null, "id=?", selectionArgs, null, null, null);
+		Cursor c = db.query("tipo", null, "_id=?", selectionArgs, null, null, null);
 		if (c.moveToFirst()) {
 			result = fromCursor(c);
 		}
