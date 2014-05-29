@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends ActionBarActivity {
-	
+public class MainActivity extends ActionBarActivity 
+		implements AdapterView.OnItemClickListener {
+
 	public static final int REQUEST_CREATE_IMOVEL = 1;
 	
 	private ListView listView;
@@ -27,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 		
 		listView = (ListView)findViewById(R.id.listView1);
+		listView.setOnItemClickListener(this);
 		
 		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -59,6 +62,14 @@ public class MainActivity extends ActionBarActivity {
 				populateList();
 			}
 		}
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent i = new Intent(this, ImovelDetailActivity.class);
+		i.putExtra(ImovelDetailActivity.EXTRA_IMOVEL_ID, 
+				((Imovel)listView.getItemAtPosition(position)).id);
+		startActivity(i);
 	}
 
 	@Override
