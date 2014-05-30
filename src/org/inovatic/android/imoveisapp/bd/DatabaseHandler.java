@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 	
-	private static final int VERSION = 1;
+	private static final int VERSION = 2;
 
 	public DatabaseHandler(Context context) {
 		super(context, "imoveis_db", null, VERSION);
@@ -24,6 +24,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ "nome TEXT,"
 				+ "descricao TEXT,"
 				+ "preco INTEGER,"
+				+ "latitude REAL,"
+				+ "longitude REAL,"
 				+ "tipo_id INTEGER REFERENCES tipo (_id));");
 		
 		populateDatabase(db);
@@ -42,8 +44,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int older, int newer) {
-		db.execSQL("DROP tipo IF EXISTS;");
-		db.execSQL("DROP imovel IF EXISTS;");
+		db.execSQL("DROP TABLE IF EXISTS tipo;");
+		db.execSQL("DROP TABLE IF EXISTS imovel;");
 		
 		onCreate(db);
 	}

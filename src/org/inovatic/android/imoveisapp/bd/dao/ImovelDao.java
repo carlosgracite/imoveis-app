@@ -25,6 +25,8 @@ public class ImovelDao {
 		values.put("nome", imovel.nome);
 		values.put("descricao", imovel.descricao);
 		values.put("preco", imovel.preco);
+		values.put("latitude", imovel.latitude);
+		values.put("longitude", imovel.longitude);
 		values.put("tipo_id", imovel.tipo.id);
 		
 		return db.insert("imovel", null, values);
@@ -40,15 +42,10 @@ public class ImovelDao {
 		Cursor cursor = db.query("imovel", null, null, null, null, null, null);
 		
 		while (cursor.moveToNext()) {
-			Imovel imovel = new Imovel();
-			imovel.id = cursor.getLong(cursor.getColumnIndex("_id"));
-			imovel.nome = cursor.getString(cursor.getColumnIndex("nome"));
-			imovel.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
-			imovel.preco = cursor.getInt(cursor.getColumnIndex("preco"));
+			Imovel imovel = fromCursor(cursor);
 			imovel.tipo = tipoDao.queryById(cursor.getLong(cursor.getColumnIndex("tipo_id")));
 			
 			result.add(imovel);
-			
 		}
 		cursor.close();
 		
@@ -81,6 +78,8 @@ public class ImovelDao {
 		values.put("nome", imovel.nome);
 		values.put("descricao", imovel.descricao);
 		values.put("preco", imovel.preco);
+		values.put("latitude", imovel.latitude);
+		values.put("longitude", imovel.longitude);
 		values.put("tipo_id", imovel.tipo.id);
 		
 		SQLiteDatabase db = dbHandler.getReadableDatabase();
@@ -94,6 +93,8 @@ public class ImovelDao {
 		imovel.nome = cursor.getString(cursor.getColumnIndex("nome"));
 		imovel.descricao = cursor.getString(cursor.getColumnIndex("descricao"));
 		imovel.preco = cursor.getInt(cursor.getColumnIndex("preco"));
+		imovel.latitude = cursor.getFloat(cursor.getColumnIndex("latitude"));
+		imovel.longitude = cursor.getFloat(cursor.getColumnIndex("longitude"));
 		return imovel;
 	}
 
