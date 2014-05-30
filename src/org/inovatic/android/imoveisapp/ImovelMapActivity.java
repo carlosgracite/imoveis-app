@@ -27,6 +27,8 @@ public class ImovelMapActivity extends ActionBarActivity {
 				.findFragmentById(R.id.map);
 		
 		map = fragment.getMap();
+		map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+		map.setMyLocationEnabled(true);
 		
 		populateMap();
 	}
