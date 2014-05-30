@@ -10,6 +10,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * Classe a ser utilizada para manter os dados de um 
+ * Imóvel no banco de dados.
+ * 
+ * @author carlosgracite
+ *
+ */
 public class ImovelDao {
 	
 	private DatabaseHandler dbHandler;

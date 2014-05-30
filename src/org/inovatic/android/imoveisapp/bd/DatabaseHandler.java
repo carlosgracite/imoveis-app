@@ -5,6 +5,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Helper utilizado para criação e atualização do banco de dados.
+ * 
+ * @author carlosgracite
+ *
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	private static final int VERSION = 2;
@@ -13,6 +19,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		super(context, "imoveis_db", null, VERSION);
 	}
 
+	/**
+	 * Método chamado quando o banco de dados é criado.
+	 * É aqui que devem ficar os SQLs de criação de tabelas.
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE tipo ("
@@ -28,9 +38,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ "longitude REAL,"
 				+ "tipo_id INTEGER REFERENCES tipo (_id));");
 		
+		// popula o banco de dados com dados de exemplo apenas para teste.
 		populateDatabase(db);
 	}
 
+	/**
+	 * Método chamado sempre que o valor de VERSION for incrementado.
+	 * Deve conter a lógica de atualização do esquema do banco de dados
+	 * conforme ele for sendo modificado.
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int older, int newer) {
 		db.execSQL("DROP TABLE IF EXISTS tipo;");
@@ -39,6 +55,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	/**
+	 * Utilizado para ativar constraint de chave estrangeira no SQLite.
+	 */
 	@Override
 	public void onOpen(SQLiteDatabase db) {
 		super.onOpen(db);
@@ -47,6 +66,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 	}
 	
+	/**
+	 * Insere dados de exemplo no banco de dados apenas para teste.
+	 * @param db
+	 */
 	private void populateDatabase(SQLiteDatabase db) {
 		ContentValues values1 = new ContentValues();
 		values1.put("nome", "Casa");
@@ -61,6 +84,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		createImovel2(db, id2);
 	}
 	
+	/**
+	 * Insere um imóvel no banco de dados com informações 'aleatórias'.
+	 * @param db
+	 * @param tipoId
+	 */
 	private void createImovel1(SQLiteDatabase db, long tipoId) {
 		ContentValues values = new ContentValues();
 		values.put("nome", "Casa grande super legal");
@@ -73,6 +101,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.insert("imovel", null, values);
 	}
 	
+	/**
+	 * Insere um imóvel no banco de dados com informações 'aleatórias'.
+	 * @param db
+	 * @param tipoId
+	 */
 	private void createImovel2(SQLiteDatabase db, long tipoId) {
 		ContentValues values = new ContentValues();
 		values.put("nome", "Ap. no edifício golden deluxe dourado.");

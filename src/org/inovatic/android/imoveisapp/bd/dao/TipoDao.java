@@ -10,6 +10,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * Classe a ser utilizada para manter os dados de um 
+ * Tipo no banco de dados.
+ * 
+ * @author carlosgracite
+ *
+ */
 public class TipoDao {
 	
 	private DatabaseHandler dbHandler;

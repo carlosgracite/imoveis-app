@@ -1,5 +1,12 @@
 package org.inovatic.android.imoveisapp.model;
 
+/**
+ * Representação de um tipo de um imóvel (apartamento, 
+ * casa, etc.)
+ * 
+ * @author carlosgracite
+ *
+ */
 public class Tipo {
 	
 	public long id;

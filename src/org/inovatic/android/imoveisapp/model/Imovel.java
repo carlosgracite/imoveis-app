@@ -1,5 +1,11 @@
 package org.inovatic.android.imoveisapp.model;
 
+/**
+ * Representação de um imóvel.
+ * 
+ * @author carlosgracite
+ *
+ */
 public class Imovel {
 	
 	public long id;

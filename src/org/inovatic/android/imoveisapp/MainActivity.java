@@ -16,11 +16,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * Activity inicial, onde é apresentada uma lista com todos imóveis e
+ * os botões para visualização de mapa e criação de ímovel.
+ * 
+ * @author carlosgracite
+ */
 public class MainActivity extends ActionBarActivity 
 		implements AdapterView.OnItemClickListener {
 
 	public static final int REQUEST_CREATE_IMOVEL = 1;
 	
+	/**
+	 * View contendo a lista de todos os imóveis.
+	 */
 	private ListView listView;
 	
 	@Override
@@ -31,6 +40,13 @@ public class MainActivity extends ActionBarActivity
 		listView = (ListView)findViewById(R.id.listView1);
 		listView.setOnItemClickListener(this);
 		
+		// Botão que inicia a activity com o formulário de inserção de imóvel.
+		// Neto que foi utilizado o método startActivityForResult. Desta forma,
+		// estamos iniciando a activity, mas esperando um resultado, que será
+		// retornado no momento em que ela for finalizada. Esse resultado é tratado 
+		// no método onActivityResult implementado lá embaixo.
+		// Neste caso, estamos iniciando a activity ImovelFormActivity, com uma
+		// 'requisição' de inserção de imóvel.
 		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -39,6 +55,8 @@ public class MainActivity extends ActionBarActivity
 			}
 		});
 		
+		// Botão que, se pressionado, inicia uma activity com o mapa contendo
+		// todos os imóveis em suas coordenadas geográficas correspondentes.
 		findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -50,11 +68,19 @@ public class MainActivity extends ActionBarActivity
 		populateList();
 	}
 
+	/**
+	 * Recupera todos os imóveis que estão armazenados no bando de dados e os
+	 * adiciona ao ListView.
+	 */
 	private void populateList() {
 		listView.setAdapter(new ArrayAdapter<>(this, 
 				android.R.layout.simple_list_item_1, queryImoveisFromDatabase()));
 	}
 
+	/**
+	 * Recupera todos os imóveis armazenados no banco de dados. 
+	 * @return
+	 */
 	private List<Imovel> queryImoveisFromDatabase() {
 		DatabaseHandler dbHandler = new DatabaseHandler(this);
 		ImovelDao imovelDao = new ImovelDao(dbHandler);
@@ -63,6 +89,14 @@ public class MainActivity extends ActionBarActivity
 		return result;
 	}
 	
+	/**
+	 * Este método é chamado sempre que uma activity iniciada por esta 
+	 * é finalizada.
+	 * Neste caso, se a activity ImovelFormActivity for finalizado com um 
+	 * resultCode de valor 'RESULT_OK' e tiver sido iniciada com o requestCode
+	 * 'REQUEST_CREATE_IMOVEL', a lista de imóveis será atualizada, pois a
+	 * inserção de um imóvel foi realizada com sucesso.
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_CREATE_IMOVEL) {
@@ -72,6 +106,12 @@ public class MainActivity extends ActionBarActivity
 		}
 	}
 	
+	/**
+	 * Método chamado quando algum item do listview for selecionado.
+	 * Caso isso ocorra, é iniciada a activity com os detalhes do imóvel
+	 * escolhido. Para isso, é passado o id do imóvel junto com o intent
+	 * para que a ImovelDetailActivity saiba a qual a operação se refere.
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent i = new Intent(this, ImovelDetailActivity.class);
