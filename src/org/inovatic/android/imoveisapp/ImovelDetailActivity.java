@@ -21,6 +21,7 @@ public class ImovelDetailActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_imovel_detail);
 		
 		nomeTextView = (TextView)findViewById(R.id.textView1);
 		descricaoTextView = (TextView)findViewById(R.id.textView4);
