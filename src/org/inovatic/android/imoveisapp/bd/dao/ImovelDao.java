@@ -70,6 +70,24 @@ public class ImovelDao {
 		return result;
 	}
 	
+	public int deleteById(long id) {
+		SQLiteDatabase db = dbHandler.getReadableDatabase();
+		return db.delete("imovel", "_id=?", new String[]{String.valueOf(id)});
+	}
+	
+	public long update(Imovel imovel) {
+		ContentValues values = new ContentValues();
+		values.put("_id", imovel.id);
+		values.put("nome", imovel.nome);
+		values.put("descricao", imovel.descricao);
+		values.put("preco", imovel.preco);
+		values.put("tipo_id", imovel.tipo.id);
+		
+		SQLiteDatabase db = dbHandler.getReadableDatabase();
+		
+		return db.update("imovel", values, "_id=?", new String[]{String.valueOf(imovel.id)});
+	}
+	
 	private Imovel fromCursor(Cursor cursor) {
 		Imovel imovel = new Imovel();
 		imovel.id = cursor.getLong(cursor.getColumnIndex("_id"));
