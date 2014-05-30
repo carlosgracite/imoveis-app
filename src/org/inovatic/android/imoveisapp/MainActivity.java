@@ -39,6 +39,14 @@ public class MainActivity extends ActionBarActivity
 			}
 		});
 		
+		findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, ImovelMapActivity.class);
+				startActivity(i);
+			}
+		});
+		
 		populateList();
 	}
 
