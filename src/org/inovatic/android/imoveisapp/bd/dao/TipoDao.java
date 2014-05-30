@@ -44,7 +44,6 @@ public class TipoDao {
 		return result;
 	}
 
-	// Vamos fazer na próxima aula.
 	public Tipo queryById(long id) {
 		Tipo result = null;
 		
@@ -61,6 +60,21 @@ public class TipoDao {
 		
 		return result;
 		
+	}
+	
+	public int deleteById(long id) {
+		SQLiteDatabase db = dbHandler.getReadableDatabase();
+		return db.delete("tipo", "_id=?", new String[]{String.valueOf(id)});
+	}
+	
+	public long update(Tipo tipo) {
+		ContentValues values = new ContentValues();
+		values.put("_id", tipo.id);
+		values.put("nome", tipo.nome);
+		
+		SQLiteDatabase db = dbHandler.getReadableDatabase();
+		
+		return db.update("tipo", values, "_id=?", new String[]{String.valueOf(tipo.id)});
 	}
 	
 	private Tipo fromCursor(Cursor cursor) {
